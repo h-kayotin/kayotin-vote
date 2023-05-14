@@ -186,7 +186,7 @@ class Subject(models.Model):
     intro = models.CharField(max_length=1000, verbose_name='介绍')
     is_hot = models.BooleanField(verbose_name='是否热门')
 		
-		def __str__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -204,7 +204,7 @@ class Teacher(models.Model):
     bad_count = models.IntegerField(default=0, db_column='bcount', verbose_name='差评数')
     subject = models.ForeignKey(Subject, models.DO_NOTHING, db_column='sno',verbose_name='所属学科')
 		
-		def __str__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
