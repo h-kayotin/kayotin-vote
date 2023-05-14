@@ -389,7 +389,7 @@ admin.site.register(Subject, SubjectModelAdmin)
 admin.site.register(Teacher, TeacherModelAdmin)
 ```
 
-> 为了更好的查看模型，我们为`Subject`类添加`__str__`魔法方法，并在该方法中返回学科名字。这样在查看老师的页面上显示老师所属学科时，就不再是`Subject object(1)`这样晦涩的信息，而是学科的名称。
+> 为了更好的查看模型，我们为`Subject`类添加`__str__`魔法方法，并在该方法中返回学科名字。这样在查看老师的页面上显示老师所属学科时，就不再是`Subject object(1)`这样晦涩的信息，而是学科的名称。这个方法在上面的models里已经添加好了，这里不用再修改了。
 ### 教师页面和学科页面
 
 1.修改polls/views.py，实现对教师和学科页面的渲染
