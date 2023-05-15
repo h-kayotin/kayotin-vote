@@ -1,0 +1,9 @@
+<div class="user">
+    {% if request.session.userid %}
+    <span>{{ request.session.username }}</span>
+    <a href="/logout">注销</a>
+    {% else %}
+    <a href="/login">登录</a>&nbsp;&nbsp;
+    {% endif %}
+    <a href="/register">注册</a>
+</div>

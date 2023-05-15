@@ -39,10 +39,18 @@
             text-decoration: none;
             color: darkcyan;
         }
+        .user {
+           float: right;
+           margin-right: 10px;
+       }
+       .user>a {
+           margin-right: 10px;
+       }
     </style>
 </head>
 <body>
     <div id="container">
+        {% include 'header.html' %}
         <h1>{{ subject.name }}学科的老师信息</h1>
         <hr>
         {% if not teachers %}

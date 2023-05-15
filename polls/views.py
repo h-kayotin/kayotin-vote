@@ -1,9 +1,8 @@
 from django.http import JsonResponse
-# Create your views here.
-
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
-
-from polls.models import Subject, Teacher
+from polls.models import Subject, Teacher, User
+from polls.utils import gen_random_code, Captcha, gen_md5_digest
 
 
 def show_subjects(request):
@@ -42,3 +41,36 @@ def praise_or_criticize(request):
     except (ValueError, Teacher.DoseNotExist):
         data = {'code': 20001, 'mesg': '操作失败'}
     return JsonResponse(data)
+
+
+def login(request: HttpRequest) -> HttpResponse:
+    hint = ''
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        if username and password:
+            password = gen_md5_digest(password)
+            user = User.objects.filter(username=username, password=password).first()
+            if user:
+                request.session['userid'] = user.no
+                request.session['username'] = user.username
+                return redirect('/')
+            else:
+                hint = '用户名或密码错误'
+        else:
+            hint = '请输入有效的用户名和密码'
+    return render(request, 'login.html', {'hint': hint})
+
+
+def get_captcha(request: HttpRequest) -> HttpResponse:
+    """验证码"""
+    captcha_text = gen_random_code()
+    request.session['captcha'] = captcha_text
+    image_data = Captcha.instance().generate(captcha_text)
+    return HttpResponse(image_data, content_type='image/png')
+
+
+def logout(request):
+    """注销"""
+    request.session.flush()
+    return redirect('/')

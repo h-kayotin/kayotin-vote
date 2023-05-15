@@ -25,4 +25,6 @@ urlpatterns = [
     path('teachers/', show_teachers),
     path('praise/', views.praise_or_criticize),
     path('criticize/', views.praise_or_criticize),
+    path('login/', views.login),  # 加入登录页
+    path('captcha/', views.get_captcha),  # 验证码
 ]
