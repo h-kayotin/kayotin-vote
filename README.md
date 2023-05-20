@@ -735,4 +735,5 @@ def praise_or_criticize(request):
 ![](resources/subjects.png)
 教师界面：
 ![](resources/teachers.png)
-### 用户登录(施工中)
+### 用户登录(见2)
+太长了，所以分了个页

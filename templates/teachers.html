@@ -83,14 +83,23 @@
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $(() => {
-            $('.comment>a').on('click', (evt) => {
+            $('.comment > a').on('click', (evt) => {
                 evt.preventDefault()
-                let url = $(evt.target).attr('href')
-                $.getJSON(url, (json) => {
-                    if (json.code == 20000) {
-                        $(evt.target).next().text(json.count)
-                    } else {
-                        alert(json.mesg)
+                let a = $(evt.target)
+                $.ajax({
+                    url: a.attr('href'),
+                    type: 'get',
+                    dataType: 'json',
+                    success: (json) => {
+                        if (json.code == 20000) {
+                            let span = a.next()
+                            span.text(parseInt(span.text()) + 1)
+                        } else if (json.code == 20002) {
+                            alert(json.mesg)
+                            location.href = '/login/?backurl=' + location.href
+                        } else {
+                            alert(json.message)
+                        }
                     }
                 })
             })

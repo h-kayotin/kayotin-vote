@@ -26,5 +26,9 @@ urlpatterns = [
     path('praise/', views.praise_or_criticize),
     path('criticize/', views.praise_or_criticize),
     path('login/', views.login),  # 加入登录页
+    path('logout/', views.logout),  # 加入注销页
     path('captcha/', views.get_captcha),  # 验证码
+    path('excel/', views.export_teachers_excel),
+    path('pdf/', views.export_pdf),
+    path('teachers_data/', views.get_teachers_data),
 ]
