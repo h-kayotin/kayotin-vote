@@ -7,11 +7,30 @@ import xlwt
 from io import BytesIO
 from urllib.parse import quote
 from reportlab.pdfgen import canvas
+from bpmappers.djangomodel import ModelMapper
+
+
+class SubjectMapper(ModelMapper):
+    class Meta:
+        model = Subject
 
 
 def show_subjects(request):
     subjects = Subject.objects.all().order_by('no')
     return render(request, 'subjects.html', {'subjects': subjects})
+
+
+def show_subjects_api(request):
+    queryset = Subject.objects.all()
+    subjects = []
+    for subject in queryset:
+        subjects.append(SubjectMapper(subject).as_dict())
+    return JsonResponse(subjects, safe=False)
+
+
+def show_index(request):
+    # return render(request, "subjects_new.html")
+    return redirect('/static/html/subjects_new.html')
 
 
 def show_teachers(request):
