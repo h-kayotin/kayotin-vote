@@ -155,3 +155,6 @@ def get_teachers_data(request):
     })
 
 
+def show_echarts(request):
+    return redirect('/static/html/teachers_echarts.html')
+

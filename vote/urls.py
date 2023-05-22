@@ -33,4 +33,5 @@ urlpatterns = [
     path('teachers_data/', views.get_teachers_data),  # echarts图表
     path('api/subjects/', views.show_subjects_api),  # 返回json数据
     path('index', views.show_index),
+    path('echarts/', views.show_echarts)
 ]
