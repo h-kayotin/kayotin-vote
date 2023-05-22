@@ -155,6 +155,14 @@ def get_teachers_data(request):
     })
 
 
+def echarts_teachers(request):
+    queryset = Teacher.objects.all()
+    names = [teacher.name for teacher in queryset]
+    good_counts = [teacher.good_count for teacher in queryset]
+    bad_counts = [teacher.bad_count for teacher in queryset]
+    return JsonResponse({'names': names, 'good': good_counts, 'bad': bad_counts})
+
+
 def show_echarts(request):
     return redirect('/static/html/teachers_echarts.html')
 

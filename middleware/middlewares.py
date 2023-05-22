@@ -22,7 +22,7 @@ def check_login_middleware(get_resp):
                 # 判断是不是Ajax请求
                 if request.is_ajax():
                     # Ajax请求返回JSON数据提示用户登录
-                    return JsonResponse({'code': 10003, 'hint': '请先登录'})
+                    return JsonResponse({'code': 20002, 'mesg': '请先登录'})
                 else:
                     backurl = request.get_full_path()
                     # 非Ajax请求直接重定向到登录页
