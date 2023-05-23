@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学科信息-动静分离</title>
+   <style>
+       #container {
+           width: 80%;
+           margin: 10px auto;
+       }
+       .user {
+           float: right;
+           margin-right: 10px;
+       }
+       .user>a {
+           margin-right: 10px;
+       }
+       #main>dl>dt {
+           font-size: 1.5em;
+           font-weight: bold;
+       }
+       #main>dl>dd {
+           font-size: 1.2em;
+       }
+       a {
+           text-decoration: none;
+           color: darkcyan;
+       }
+   </style>
+</head>
+<body>
+    <div id="container">
+        <h1>扣丁学堂所有学科</h1>
+        <hr>
+        <div id="main">
+            <dl v-for="subject in subjects">
+                <dt>
+                    <a :href="'/teachers/?sno=' + subject.no">
+                        {{ subject.name }}
+                    </a>
+                    <img v-if="subject.is_hot" src="/static/images/hot-icon-small.png">
+                </dt>
+                <dd>{{ subject.intro }}</dd>
+            </dl>
+        </div>
+    </div>
+    <p>
+        <a href="/">返回首页</a>
+    </p>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <script>
+        let app = new Vue({
+            el: '#main',
+            data: {
+                subjects: []
+            },
+            created() {
+<!--               只需修改这里-->
+                fetch('/restapi/subjects/')
+                    .then(resp => resp.json())
+                    .then(json => {
+                        this.subjects = json
+                    })
+            }
+        })
+    </script>
+</body>
+</html>

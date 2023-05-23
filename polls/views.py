@@ -8,11 +8,28 @@ from io import BytesIO
 from urllib.parse import quote
 from reportlab.pdfgen import canvas
 from bpmappers.djangomodel import ModelMapper
+from rest_framework import serializers
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 class SubjectMapper(ModelMapper):
     class Meta:
         model = Subject
+
+
+class SubjectSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Subject
+        fields = '__all__'
+
+
+class TeacherSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Teacher
+        exclude = ('subject', )
 
 
 def show_subjects(request):
@@ -165,3 +182,32 @@ def teachers_api(request):
 def show_echarts(request):
     return redirect('/static/html/teachers_echarts.html')
 
+
+@api_view(('GET', ))
+def show_subjects_rest(request: HttpRequest) -> HttpResponse:
+    subjects = Subject.objects.all().order_by('no')
+    # 创建序列化器对象并指定要序列化的模型
+    serializer = SubjectSerializer(subjects, many=True)
+    # 通过序列化器的data属性获得模型对应的字典并通过创建Response对象返回JSON格式的数据
+    return Response(serializer.data)
+
+
+def subjects_restapi(request):
+    return redirect('/static/html/subjects_rest.html')
+
+
+@api_view(('GET', ))
+def show_teachers_rest(request: HttpRequest) -> HttpResponse:
+    try:
+        sno = int(request.GET.get('sno'))
+        subject = Subject.objects.only('name').get(no=sno)
+        teachers = Teacher.objects.filter(subject=subject).defer('subject').order_by('no')
+        subject_seri = SubjectSimpleSerializer(subject)
+        teacher_seri = TeacherSerializer(teachers, many=True)
+        return Response({'subject': subject_seri.data, 'teachers': teacher_seri.data})
+    except (TypeError, ValueError, Subject.DoesNotExist):
+        return Response(status=404)
+
+
+def teachers_restapi(request):
+    return redirect('/static/html/teachers_rest.html')
