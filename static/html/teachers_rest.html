@@ -55,7 +55,7 @@
         <h2 v-if="loaded && teachers.length == 0">暂无该学科老师信息</h2>
         <div class="teacher" v-for="teacher in teachers">
             <div class="photo">
-                <img :src="'/static/images/' + teacher.photo" height="140" alt="">
+                <img :src="'/static/' + teacher.photo" height="140" alt="">
             </div>
             <div class="info">
                 <div>

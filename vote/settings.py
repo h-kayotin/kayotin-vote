@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'polls',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -135,6 +136,7 @@ USE_TZ = True
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_URL = '/static/'
 
+
 LOGGING = {
     'version': 1,
     # 是否禁用已经存在的日志器
@@ -170,7 +172,7 @@ LOGGING = {
         # 输出到文件(每周切割一次)
         'file1': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': '/logs/access.log',
+            'filename': 'access.log',
             'when': 'W0',
             'backupCount': 12,
             'formatter': 'simple',
@@ -179,7 +181,7 @@ LOGGING = {
         # 输出到文件(每天切割一次)
         'file2': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': '/logs/error.log',
+            'filename': 'error.log',
             'when': 'D',
             'backupCount': 31,
             'formatter': 'verbose',
