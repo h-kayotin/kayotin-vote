@@ -736,4 +736,4 @@ def praise_or_criticize(request):
 教师界面：
 ![](resources/teachers.png)
 ### 用户登录(见2)
-太长了，所以分了个页
+太长了，所以分了个页。剩下的内容在intro这个文件夹里
