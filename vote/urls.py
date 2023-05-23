@@ -34,5 +34,5 @@ urlpatterns = [
     path('api/subjects/', views.show_subjects_api),  # 返回json数据
     path('index', views.show_index),
     path('echarts/', views.show_echarts),
-    path('echarts_teachers/', views.echarts_teachers)
+    path('/api/teachers/', views.teachers_api)
 ]

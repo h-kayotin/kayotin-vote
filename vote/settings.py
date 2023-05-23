@@ -160,17 +160,17 @@ LOGGING = {
     },
     # 日志处理器
     'handlers': {
-        # 输出到控制台
-        'console': {
-            'class': 'logging.StreamHandler',
-            'level': 'DEBUG',
-            'filters': ['require_debug_true'],
-            'formatter': 'simple',
-        },
+        # # 输出到控制台
+        # 'console': {
+        #     'class': 'logging.StreamHandler',
+        #     'level': 'DEBUG',
+        #     'filters': ['require_debug_true'],
+        #     'formatter': 'simple',
+        # },
         # 输出到文件(每周切割一次)
         'file1': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'access.log',
+            'filename': '/logs/access.log',
             'when': 'W0',
             'backupCount': 12,
             'formatter': 'simple',
@@ -179,7 +179,7 @@ LOGGING = {
         # 输出到文件(每天切割一次)
         'file2': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'error.log',
+            'filename': '/logs/error.log',
             'when': 'D',
             'backupCount': 31,
             'formatter': 'verbose',
@@ -190,7 +190,8 @@ LOGGING = {
     'loggers': {
         'django': {
             # 需要使用的日志处理器
-            'handlers': ['console', 'file1', 'file2'],
+            # 'handlers': ['console', 'file1', 'file2'],
+            'handlers': ['file1', 'file2'],
             # 是否向上传播日志信息
             'propagate': True,
             # 日志级别(不一定是最终的日志级别)

@@ -29,7 +29,6 @@ def show_subjects_api(request):
 
 
 def show_index(request):
-    # return render(request, "subjects_new.html")
     return redirect('/static/html/subjects_new.html')
 
 
@@ -155,7 +154,7 @@ def get_teachers_data(request):
     })
 
 
-def echarts_teachers(request):
+def teachers_api(request):
     queryset = Teacher.objects.all()
     names = [teacher.name for teacher in queryset]
     good_counts = [teacher.good_count for teacher in queryset]
