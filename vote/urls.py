@@ -19,6 +19,11 @@ from django.urls import path
 from polls.views import show_subjects, show_teachers
 from polls import views
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', show_subjects),
@@ -38,4 +43,7 @@ urlpatterns = [
     path('restapi/subjects/', views.show_subjects_rest),
     path('subjects/', views.subjects_restapi),
     path('api/teachers_rest/', views.show_teachers_rest),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
+
