@@ -102,12 +102,15 @@
                     let url = flag? '/praise/' : '/criticize/'
                     url += '?tno=' + teacher.no
                     fetch(url).then(resp => resp.json()).then(json => {
-                        if (json.code === 10000) {
+                        if (json.code === 20000) {
                             if (flag) {
                                 teacher.good_count = json.count
                             } else {
                                 teacher.bad_count = json.count
                             }
+                        } else if (json.code == 20002){
+                            alert(json.mesg)
+                            location.href = '/login/?backurl=' + location.href
                         }
                     })
                 }

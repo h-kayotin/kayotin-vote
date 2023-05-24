@@ -136,6 +136,9 @@ USE_TZ = True
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_URL = '/static/'
 
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+if not os.path.exists(LOG_DIR):
+    os.mkdir(LOG_DIR)
 
 LOGGING = {
     'version': 1,
@@ -172,7 +175,7 @@ LOGGING = {
         # 输出到文件(每周切割一次)
         'file1': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'access.log',
+            'filename': os.path.join(LOG_DIR, 'access.log'),
             'when': 'W0',
             'backupCount': 12,
             'formatter': 'simple',
@@ -181,7 +184,7 @@ LOGGING = {
         # 输出到文件(每天切割一次)
         'file2': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'error.log',
+            'filename': os.path.join(LOG_DIR, 'error.log'),
             'when': 'D',
             'backupCount': 31,
             'formatter': 'verbose',

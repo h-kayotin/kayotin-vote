@@ -208,6 +208,3 @@ def show_teachers_rest(request: HttpRequest) -> HttpResponse:
     except (TypeError, ValueError, Subject.DoesNotExist):
         return Response(status=404)
 
-
-def teachers_restapi(request):
-    return redirect('/static/html/teachers_rest.html')

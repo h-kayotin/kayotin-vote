@@ -38,5 +38,4 @@ urlpatterns = [
     path('restapi/subjects/', views.show_subjects_rest),
     path('subjects/', views.subjects_restapi),
     path('api/teachers_rest/', views.show_teachers_rest),
-    path('index_teachers/', views.teachers_restapi),
 ]
