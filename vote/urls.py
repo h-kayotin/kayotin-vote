@@ -22,6 +22,7 @@ from polls import views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
+    TokenVerifyView
 )
 
 urlpatterns = [
@@ -43,7 +44,11 @@ urlpatterns = [
     path('restapi/subjects/', views.show_subjects_rest),
     path('subjects/', views.subjects_restapi),
     path('api/teachers_rest/', views.show_teachers_rest),
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # 获取Token的接口
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # 刷新Token有效期的接口
+    path('api/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # 验证Token的有效性
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
 

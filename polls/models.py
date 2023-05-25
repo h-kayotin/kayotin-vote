@@ -47,3 +47,4 @@ class User(models.Model):
         db_table = 'tb_user'
         verbose_name = '用户'
         verbose_name_plural = '用户'
+
