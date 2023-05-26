@@ -223,3 +223,25 @@ LOGGING = {
     }
 }
 
+CACHES = {
+    'default': {
+        # 指定通过django-redis接入Redis服务
+        'BACKEND': 'django_redis.cache.RedisCache',
+        # Redis服务器的URL
+        'LOCATION': ['redis://192.168.32.11:6379/0', ],
+        # Redis中键的前缀（解决命名冲突）
+        'KEY_PREFIX': 'vote',
+        # 其他的配置选项
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            # 连接池（预置若干备用的Redis连接）参数
+            'CONNECTION_POOL_KWARGS': {
+                # 最大连接数
+                'max_connections': 512,
+            },
+            # 连接Redis的用户口令
+            'PASSWORD': 'abc@1234',
+        }
+    },
+}
+

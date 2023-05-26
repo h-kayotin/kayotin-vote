@@ -11,6 +11,8 @@ from bpmappers.djangomodel import ModelMapper
 from rest_framework import serializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django_redis import get_redis_connection
+from django_redis.serializers import json
 
 
 class SubjectMapper(ModelMapper):
@@ -208,3 +210,19 @@ def show_teachers_rest(request: HttpRequest) -> HttpResponse:
     except (TypeError, ValueError, Subject.DoesNotExist):
         return Response(status=404)
 
+
+def show_subjects_red(request):
+    """获取学科数据"""
+    redis_cli = get_redis_connection()
+    # 先尝试从缓存中获取学科数据
+    data = redis_cli.get('vote:polls:subjects')
+    if data:
+        # 如果获取到学科数据就进行反序列化操作
+        data = json.loads(data)
+    else:
+        # 如果缓存中没有获取到学科数据就查询数据库
+        queryset = Subject.objects.all()
+        data = SubjectSerializer(queryset, many=True).data
+        # 将查到的学科数据序列化后放到缓存中
+        redis_cli.set('vote:polls:subjects', json.dumps(data), ex=86400)
+    return Response({'code': 20000, 'subjects': data})
